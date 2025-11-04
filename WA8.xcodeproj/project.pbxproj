@@ -1,0 +1,618 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		18AE1E242EB47DD5000E7E19 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 18AE1E232EB47DD5000E7E19 /* FirebaseAuth */; };
+		18AE1E262EB47DD5000E7E19 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 18AE1E252EB47DD5000E7E19 /* FirebaseFirestore */; };
+		18AE1E282EB47DD5000E7E19 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 18AE1E272EB47DD5000E7E19 /* FirebaseStorage */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		18AE1E032EB47B0E000E7E19 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 18AE1DE42EB47B0D000E7E19 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 18AE1DEB2EB47B0D000E7E19;
+			remoteInfo = WA8;
+		};
+		18AE1E0D2EB47B0E000E7E19 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 18AE1DE42EB47B0D000E7E19 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 18AE1DEB2EB47B0D000E7E19;
+			remoteInfo = WA8;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		18AE1DEC2EB47B0D000E7E19 /* WA8.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WA8.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		18AE1E022EB47B0E000E7E19 /* WA8Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WA8Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		18AE1E0C2EB47B0E000E7E19 /* WA8UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WA8UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		18AE1E142EB47B0E000E7E19 /* Exceptions for "WA8" folder in "WA8" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 18AE1DEB2EB47B0D000E7E19 /* WA8 */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		18AE1DEE2EB47B0D000E7E19 /* WA8 */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				18AE1E142EB47B0E000E7E19 /* Exceptions for "WA8" folder in "WA8" target */,
+			);
+			path = WA8;
+			sourceTree = "<group>";
+		};
+		18AE1E052EB47B0E000E7E19 /* WA8Tests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = WA8Tests;
+			sourceTree = "<group>";
+		};
+		18AE1E0F2EB47B0E000E7E19 /* WA8UITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = WA8UITests;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		18AE1DE92EB47B0D000E7E19 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				18AE1E242EB47DD5000E7E19 /* FirebaseAuth in Frameworks */,
+				18AE1E262EB47DD5000E7E19 /* FirebaseFirestore in Frameworks */,
+				18AE1E282EB47DD5000E7E19 /* FirebaseStorage in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		18AE1DFF2EB47B0E000E7E19 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		18AE1E092EB47B0E000E7E19 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		18AE1DE32EB47B0D000E7E19 = {
+			isa = PBXGroup;
+			children = (
+				18AE1DEE2EB47B0D000E7E19 /* WA8 */,
+				18AE1E052EB47B0E000E7E19 /* WA8Tests */,
+				18AE1E0F2EB47B0E000E7E19 /* WA8UITests */,
+				18AE1DED2EB47B0D000E7E19 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		18AE1DED2EB47B0D000E7E19 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				18AE1DEC2EB47B0D000E7E19 /* WA8.app */,
+				18AE1E022EB47B0E000E7E19 /* WA8Tests.xctest */,
+				18AE1E0C2EB47B0E000E7E19 /* WA8UITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		18AE1DEB2EB47B0D000E7E19 /* WA8 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 18AE1E152EB47B0E000E7E19 /* Build configuration list for PBXNativeTarget "WA8" */;
+			buildPhases = (
+				18AE1DE82EB47B0D000E7E19 /* Sources */,
+				18AE1DE92EB47B0D000E7E19 /* Frameworks */,
+				18AE1DEA2EB47B0D000E7E19 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				18AE1DEE2EB47B0D000E7E19 /* WA8 */,
+			);
+			name = WA8;
+			packageProductDependencies = (
+				18AE1E232EB47DD5000E7E19 /* FirebaseAuth */,
+				18AE1E252EB47DD5000E7E19 /* FirebaseFirestore */,
+				18AE1E272EB47DD5000E7E19 /* FirebaseStorage */,
+			);
+			productName = WA8;
+			productReference = 18AE1DEC2EB47B0D000E7E19 /* WA8.app */;
+			productType = "com.apple.product-type.application";
+		};
+		18AE1E012EB47B0E000E7E19 /* WA8Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 18AE1E1A2EB47B0E000E7E19 /* Build configuration list for PBXNativeTarget "WA8Tests" */;
+			buildPhases = (
+				18AE1DFE2EB47B0E000E7E19 /* Sources */,
+				18AE1DFF2EB47B0E000E7E19 /* Frameworks */,
+				18AE1E002EB47B0E000E7E19 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				18AE1E042EB47B0E000E7E19 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				18AE1E052EB47B0E000E7E19 /* WA8Tests */,
+			);
+			name = WA8Tests;
+			packageProductDependencies = (
+			);
+			productName = WA8Tests;
+			productReference = 18AE1E022EB47B0E000E7E19 /* WA8Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		18AE1E0B2EB47B0E000E7E19 /* WA8UITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 18AE1E1D2EB47B0E000E7E19 /* Build configuration list for PBXNativeTarget "WA8UITests" */;
+			buildPhases = (
+				18AE1E082EB47B0E000E7E19 /* Sources */,
+				18AE1E092EB47B0E000E7E19 /* Frameworks */,
+				18AE1E0A2EB47B0E000E7E19 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				18AE1E0E2EB47B0E000E7E19 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				18AE1E0F2EB47B0E000E7E19 /* WA8UITests */,
+			);
+			name = WA8UITests;
+			packageProductDependencies = (
+			);
+			productName = WA8UITests;
+			productReference = 18AE1E0C2EB47B0E000E7E19 /* WA8UITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		18AE1DE42EB47B0D000E7E19 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1640;
+				LastUpgradeCheck = 1640;
+				TargetAttributes = {
+					18AE1DEB2EB47B0D000E7E19 = {
+						CreatedOnToolsVersion = 16.4;
+					};
+					18AE1E012EB47B0E000E7E19 = {
+						CreatedOnToolsVersion = 16.4;
+						TestTargetID = 18AE1DEB2EB47B0D000E7E19;
+					};
+					18AE1E0B2EB47B0E000E7E19 = {
+						CreatedOnToolsVersion = 16.4;
+						TestTargetID = 18AE1DEB2EB47B0D000E7E19;
+					};
+				};
+			};
+			buildConfigurationList = 18AE1DE72EB47B0D000E7E19 /* Build configuration list for PBXProject "WA8" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 18AE1DE32EB47B0D000E7E19;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				18AE1E222EB47DD5000E7E19 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 18AE1DED2EB47B0D000E7E19 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				18AE1DEB2EB47B0D000E7E19 /* WA8 */,
+				18AE1E012EB47B0E000E7E19 /* WA8Tests */,
+				18AE1E0B2EB47B0E000E7E19 /* WA8UITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		18AE1DEA2EB47B0D000E7E19 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		18AE1E002EB47B0E000E7E19 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		18AE1E0A2EB47B0E000E7E19 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		18AE1DE82EB47B0D000E7E19 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		18AE1DFE2EB47B0E000E7E19 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		18AE1E082EB47B0E000E7E19 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		18AE1E042EB47B0E000E7E19 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 18AE1DEB2EB47B0D000E7E19 /* WA8 */;
+			targetProxy = 18AE1E032EB47B0E000E7E19 /* PBXContainerItemProxy */;
+		};
+		18AE1E0E2EB47B0E000E7E19 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 18AE1DEB2EB47B0D000E7E19 /* WA8 */;
+			targetProxy = 18AE1E0D2EB47B0E000E7E19 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		18AE1E162EB47B0E000E7E19 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 33684RQNW5;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WA8/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nuios.WA8;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		18AE1E172EB47B0E000E7E19 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 33684RQNW5;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WA8/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nuios.WA8;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		18AE1E182EB47B0E000E7E19 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 33684RQNW5;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		18AE1E192EB47B0E000E7E19 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 33684RQNW5;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		18AE1E1B2EB47B0E000E7E19 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 33684RQNW5;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nuios.WA8Tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WA8.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/WA8";
+			};
+			name = Debug;
+		};
+		18AE1E1C2EB47B0E000E7E19 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 33684RQNW5;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nuios.WA8Tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WA8.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/WA8";
+			};
+			name = Release;
+		};
+		18AE1E1E2EB47B0E000E7E19 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 33684RQNW5;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nuios.WA8UITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = WA8;
+			};
+			name = Debug;
+		};
+		18AE1E1F2EB47B0E000E7E19 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 33684RQNW5;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nuios.WA8UITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = WA8;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		18AE1DE72EB47B0D000E7E19 /* Build configuration list for PBXProject "WA8" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				18AE1E182EB47B0E000E7E19 /* Debug */,
+				18AE1E192EB47B0E000E7E19 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		18AE1E152EB47B0E000E7E19 /* Build configuration list for PBXNativeTarget "WA8" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				18AE1E162EB47B0E000E7E19 /* Debug */,
+				18AE1E172EB47B0E000E7E19 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		18AE1E1A2EB47B0E000E7E19 /* Build configuration list for PBXNativeTarget "WA8Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				18AE1E1B2EB47B0E000E7E19 /* Debug */,
+				18AE1E1C2EB47B0E000E7E19 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		18AE1E1D2EB47B0E000E7E19 /* Build configuration list for PBXNativeTarget "WA8UITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				18AE1E1E2EB47B0E000E7E19 /* Debug */,
+				18AE1E1F2EB47B0E000E7E19 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		18AE1E222EB47DD5000E7E19 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.5.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		18AE1E232EB47DD5000E7E19 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 18AE1E222EB47DD5000E7E19 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		18AE1E252EB47DD5000E7E19 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 18AE1E222EB47DD5000E7E19 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		18AE1E272EB47DD5000E7E19 /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 18AE1E222EB47DD5000E7E19 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 18AE1DE42EB47B0D000E7E19 /* Project object */;
+}
