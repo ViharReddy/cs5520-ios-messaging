@@ -10,6 +10,7 @@ import UIKit
 class IncomingMsgCell: UITableViewCell {
     var bubbleView: UIView!
     var stackView: UIStackView!
+    var senderLabel: UILabel!
     var messageLabel: UILabel!
     var timeLabel: UILabel!
     
@@ -35,6 +36,7 @@ class IncomingMsgCell: UITableViewCell {
         
         setupBubbleView()
         setupStackView()
+        setupSenderLabel()
         setupMessageLabel()
         setupTimeLabel()
         
@@ -59,6 +61,14 @@ class IncomingMsgCell: UITableViewCell {
         bubbleView.addSubview(stackView)
     }
     
+    func setupSenderLabel() {
+        senderLabel = UILabel()
+        senderLabel.font = .systemFont(ofSize: 13, weight: .medium)
+        senderLabel.textColor = .label
+        senderLabel.translatesAutoresizingMaskIntoConstraints = false
+        stackView.addArrangedSubview(senderLabel)
+    }
+    
     func setupMessageLabel() {
         messageLabel = UILabel()
         messageLabel.numberOfLines = 0
@@ -80,7 +90,6 @@ class IncomingMsgCell: UITableViewCell {
             bubbleView.topAnchor.constraint(equalTo: topAnchor, constant: 8),
             bubbleView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8),
             bubbleView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-//            bubbleView.trailingAnchor.constraint(lessThanOrEqualTo: centerXAnchor),
             bubbleView.widthAnchor.constraint(lessThanOrEqualTo: widthAnchor, multiplier: 0.7),
             
             stackView.topAnchor.constraint(equalTo: bubbleView.topAnchor, constant: 8),

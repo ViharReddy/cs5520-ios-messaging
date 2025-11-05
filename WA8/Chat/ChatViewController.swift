@@ -31,7 +31,7 @@ class ChatViewController: UIViewController {
         chatView.messagesTableView.delegate = self
         chatView.messagesTableView.dataSource = self
         chatView.messagesTableView.rowHeight = UITableView.automaticDimension
-        chatView.messagesTableView.estimatedRowHeight = 44
+        chatView.messagesTableView.estimatedRowHeight = 60
         chatView.sendMsgButton.addTarget(self, action: #selector(sendTapped), for: .touchUpInside)
         
         if let chat = chat {
@@ -71,33 +71,28 @@ class ChatViewController: UIViewController {
     func createChatAndSendFirstMessage(text: String) {
         var withIds = participants.compactMap { $0.uid }
         withIds.append(currentUID)
+        
+        var withNames = self.participants.map { $0.name }
+        withNames.append(UserSession.shared.currentUser!.name)
 
-        db.collection("users").document(currentUID).getDocument { snapshot, error in
-            guard let data = snapshot?.data(),
-                  let currentUserName = data["name"] as? String else { return }
+        let chatRef = self.db.collection("chats").document()
+        let chatData: [String: Any] = [
+            "with": withIds,
+            "withNames": withNames,
+            "lastMessage": text,
+            "lastSender": self.currentUID,
+            "lastUpdated": Timestamp()
+        ]
 
-            var withNames = self.participants.map { $0.name }
-            withNames.append(currentUserName)
-
-            let chatRef = self.db.collection("chats").document()
-            let chatData: [String: Any] = [
-                "with": withIds,
-                "withNames": withNames,
-                "lastMessage": text,
-                "lastSender": self.currentUID,
-                "lastUpdated": Timestamp()
-            ]
-
-            chatRef.setData(chatData) { error in
-                guard error == nil else { return }
-                chatRef.getDocument { docSnapshot, error in
-                    guard let doc = docSnapshot,
-                          let chat = try? doc.data(as: Chat.self)
-                    else { return }
-                    self.chat = chat
-                    self.listenForMessages()
-                    self.sendMsgToExistingChat(chatId: chat.chatId!, text: text)
-                }
+        chatRef.setData(chatData) { error in
+            guard error == nil else { return }
+            chatRef.getDocument { docSnapshot, error in
+                guard let doc = docSnapshot,
+                      let chat = try? doc.data(as: Chat.self)
+                else { return }
+                self.chat = chat
+                self.listenForMessages()
+                self.sendMsgToExistingChat(chatId: chat.chatId!, text: text)
             }
         }
     }
@@ -111,6 +106,7 @@ class ChatViewController: UIViewController {
         let msgData: [String: Any] = [
             "text": text,
             "senderId": currentUID,
+            "senderName": UserSession.shared.currentUser!.name,
             "timestamp": now
         ]
 
@@ -168,6 +164,7 @@ extension ChatViewController: UITableViewDataSource, UITableViewDelegate {
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "incomingMsgs", for: indexPath) as! IncomingMsgCell
+            cell.senderLabel.text = message.senderName
             cell.messageLabel.text = message.text
             cell.timeLabel.text = message.timestamp.formattedTime()
             return cell
