@@ -15,6 +15,7 @@ struct Chat: Codable, Hashable {
     var lastMessage: String?
     var lastSender: String?
     var lastUpdated: Timestamp
+    var participantsKey: String? 
     
     var lastMsgPreview: String {
         let maxCharacters = 95

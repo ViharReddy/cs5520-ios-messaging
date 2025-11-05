@@ -68,62 +68,137 @@ class ChatViewController: UIViewController {
         chatView.sendMsgTextField.text = ""
     }
     
-    func createChatAndSendFirstMessage(text: String) {
-        print("checkpoint 1")
-        var withIds = participants.map { $0.uid }
-        withIds.append(currentUID)
-        
-        db.collection("users").document(currentUID).getDocument { snapshot, error in
-            print("checkpoint 2")
-            guard let data = snapshot?.data(), let currentUserName = data["name"] as? String else { return }
-            
-            var withNames = self.participants.map { $0.name }
-            withNames.append(currentUserName)
-            
-            let chatRef = self.db.collection("chats").document()
-            let chatData: [String: Any] = [
-                "with": withIds,
-                "withNames": withNames,
-                "lastMessage": text,
-                "lastSender": self.currentUID,
-                "lastUpdated": Timestamp()
-            ]
-            
+//    func createChatAndSendFirstMessage(text: String) {
+//        print("checkpoint 1")
+//        var withIds = participants.map { $0.uid }
+//        withIds.append(currentUID)
+//        
+//        db.collection("users").document(currentUID).getDocument { snapshot, error in
+//            print("checkpoint 2")
+//            guard let data = snapshot?.data(), let currentUserName = data["name"] as? String else { return }
+//            
+//            var withNames = self.participants.map { $0.name }
+//            withNames.append(currentUserName)
+//            
+//            let chatRef = self.db.collection("chats").document()
+//            let chatData: [String: Any] = [
+//                "with": withIds,
+//                "withNames": withNames,
+//                "lastMessage": text,
+//                "lastSender": self.currentUID,
+//                "lastUpdated": Timestamp()
+//            ]
+//            
+////            chatRef.setData(chatData) { error in
+////                print("checkpoint 3")
+////                guard error == nil else { return }
+////                chatRef.getDocument { docSnapshot, error in
+////                    print("checkpoint 4")
+////                    guard let doc = docSnapshot,
+////                          let chat = try? doc.data(as: Chat.self) else { return }
+////                    self.chat = chat
+////                    self.listenForMessages()
+////                    self.sendMsgToExistingChat(chatId: chat.chatId!, text: text)
+////                }
+////            }
 //            chatRef.setData(chatData) { error in
 //                print("checkpoint 3")
 //                guard error == nil else { return }
 //                chatRef.getDocument { docSnapshot, error in
 //                    print("checkpoint 4")
-//                    guard let doc = docSnapshot,
-//                          let chat = try? doc.data(as: Chat.self) else { return }
-//                    self.chat = chat
-//                    self.listenForMessages()
-//                    self.sendMsgToExistingChat(chatId: chat.chatId!, text: text)
+//                    guard let doc = docSnapshot else {
+//                        print("❌ No document snapshot")
+//                        return
+//                    }
+//                    do {
+//                        let chat = try doc.data(as: Chat.self)
+//                        print("✅ Chat decoded, id:", chat.chatId ?? "nil")
+//                        self.chat = chat
+//                        self.listenForMessages()
+//                        self.sendMsgToExistingChat(chatId: chat.chatId, text: text)
+//                    } catch {
+//                        print("❌ Failed to decode Chat:", error)
+//                        print("Raw data:", doc.data() ?? [:])
+//                    }
 //                }
 //            }
-            chatRef.setData(chatData) { error in
-                print("checkpoint 3")
-                guard error == nil else { return }
-                chatRef.getDocument { docSnapshot, error in
-                    print("checkpoint 4")
-                    guard let doc = docSnapshot else {
-                        print("❌ No document snapshot")
-                        return
-                    }
+//        }
+//    }
+    func createChatAndSendFirstMessage(text: String) {
+        print("checkpoint 1")
+
+        // get the uid of participants
+        var withIds = participants.compactMap { $0.uid }
+        withIds.append(currentUID)
+
+        // sort and generate key
+        let sortedIds = withIds.sorted()
+        let participantsKey = sortedIds.joined(separator: "_")
+
+        // check existing chat
+        db.collection("chats")
+            .whereField("participantsKey", isEqualTo: participantsKey)
+            .limit(to: 1)
+            .getDocuments { snapshot, error in
+                if let error = error {
+                    print("🔥 Error querying chats:", error)
+                    return
+                }
+
+                if let existingDoc = snapshot?.documents.first {
                     do {
-                        let chat = try doc.data(as: Chat.self)
-                        print("✅ Chat decoded, id:", chat.chatId ?? "nil")
-                        self.chat = chat
+                        let existingChat = try existingDoc.data(as: Chat.self)
+                        print("✅ Reusing existing chat:", existingChat.chatId ?? "nil")
+                        self.chat = existingChat
                         self.listenForMessages()
-                        self.sendMsgToExistingChat(chatId: chat.chatId, text: text)
+                        self.sendMsgToExistingChat(chatId: existingChat.chatId, text: text)
                     } catch {
-                        print("❌ Failed to decode Chat:", error)
-                        print("Raw data:", doc.data() ?? [:])
+                        print("❌ Failed to decode existing chat:", error)
+                    }
+                    return
+                }
+
+                
+                print("➡️ No existing chat, creating new one")
+
+                self.db.collection("users").document(self.currentUID).getDocument { snapshot, error in
+                    print("checkpoint 2")
+                    guard let data = snapshot?.data(),
+                          let currentUserName = data["name"] as? String else { return }
+
+                    var withNames = self.participants.map { $0.name }
+                    withNames.append(currentUserName)
+
+                    let chatRef = self.db.collection("chats").document()
+                    let chatData: [String: Any] = [
+                        "with": withIds,
+                        "withNames": withNames,
+                        "lastMessage": text,
+                        "lastSender": self.currentUID,
+                        "lastUpdated": Timestamp(),
+                        "participantsKey": participantsKey
+                    ]
+
+                    chatRef.setData(chatData) { error in
+                        print("checkpoint 3")
+                        guard error == nil else { return }
+                        chatRef.getDocument { docSnapshot, error in
+                            print("checkpoint 4")
+                            guard let doc = docSnapshot else { return }
+                            do {
+                                let chat = try doc.data(as: Chat.self)
+                                self.chat = chat
+                                self.listenForMessages()
+                                self.sendMsgToExistingChat(chatId: chat.chatId, text: text)
+                            } catch {
+                                print("❌ Failed to decode new chat:", error)
+                            }
+                        }
                     }
                 }
             }
-        }
     }
+
     
 //    func sendMsgToExistingChat(chatId: String, text: String) {
 //        let msgRef = db.collection("chats").document(chatId).collection("messages").document()
