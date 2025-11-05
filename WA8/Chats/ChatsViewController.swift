@@ -115,20 +115,20 @@ extension ChatsViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension ChatsViewController: CreateChatViewControllerDelegate {
     func didSelectParticipants(_ participants: [User]) {
-        if participants.count == 1 {
-            let selectedUID = participants[0].uid
-            fetchExistingChat(with: selectedUID!) { existingChat in
+//        if participants.count == 1 {
+            let selectedUIDs = participants.compactMap { $0.uid }
+            fetchExistingChat(with: selectedUIDs) { existingChat in
                 self.openChat(existingChat: existingChat, participants: participants)
             }
-        } else {
-            openChat(existingChat: nil, participants: participants)
-        }
+//        } else {
+//            openChat(existingChat: nil, participants: participants)
+//        }
     }
     
-    func fetchExistingChat(with uid: String, completion: @escaping (Chat?) -> Void) {
+    func fetchExistingChat(with uids: [String], completion: @escaping (Chat?) -> Void) {
         guard let currentUserUID = Auth.auth().currentUser?.uid else { return }
         
-        let allIds = [currentUserUID, uid].sorted()
+        let allIds = (uids + [currentUserUID]).sorted()
         
         db.collection("chats").whereField("with", arrayContains: currentUserUID)
             .getDocuments { snapshot, error in

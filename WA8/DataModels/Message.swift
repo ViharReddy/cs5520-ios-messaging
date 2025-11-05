@@ -16,16 +16,6 @@ struct Message: Codable, Hashable {
     var timestamp: Timestamp
 }
 
-//extension Int64 {
-//    func formattedTime() -> String {
-//        let date = Date(timeIntervalSince1970: TimeInterval(self) / 1000)
-//        let formatter = DateFormatter()
-//        formatter.dateFormat = "hh:mm a"
-//        return formatter.string(from: date)
-//    }
-//}
-
-
 extension Timestamp {
     func formattedTime() -> String {
         let date = self.dateValue()
