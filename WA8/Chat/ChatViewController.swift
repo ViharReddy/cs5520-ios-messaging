@@ -60,90 +60,60 @@ class ChatViewController: UIViewController {
     @objc func sendTapped() {
         guard let text = chatView.sendMsgTextField.text, !text.isEmpty else { return }
         
-        if let chat = chat {
-            sendMsgToExistingChat(chatId: chat.chatId!, text: text)
+        if let chatId = chat?.chatId {
+            sendMsgToExistingChat(chatId: chatId, text: text)
         } else {
             createChatAndSendFirstMessage(text: text)
         }
         chatView.sendMsgTextField.text = ""
     }
     
+
+
     func createChatAndSendFirstMessage(text: String) {
         print("checkpoint 1")
 
-        // get the uid of participants
+        // collect uid of all participants
         var withIds = participants.compactMap { $0.uid }
         withIds.append(currentUID)
+        
+        // get user name
+        db.collection("users").document(currentUID).getDocument { snapshot, error in
+            print("checkpoint 2")
+            guard let data = snapshot?.data(),
+                  let currentUserName = data["name"] as? String else { return }
 
-        // sort and generate key
-        let sortedIds = withIds.sorted()
-        let participantsKey = sortedIds.joined(separator: "_")
+            var withNames = self.participants.map { $0.name }
+            withNames.append(currentUserName)
 
-        // check existing chat
-        db.collection("chats")
-            .whereField("participantsKey", isEqualTo: participantsKey)
-            .limit(to: 1)
-            .getDocuments { snapshot, error in
-                if let error = error {
-                    print("Error querying chats:", error)
-                    return
-                }
+            let chatRef = self.db.collection("chats").document()
+            let chatData: [String: Any] = [
+                "with": withIds,
+                "withNames": withNames,
+                "lastMessage": text,
+                "lastSender": self.currentUID,
+                "lastUpdated": Timestamp()
+            ]
 
-                if let existingDoc = snapshot?.documents.first {
+            chatRef.setData(chatData) { error in
+                print("checkpoint 3")
+                guard error == nil else { return }
+                chatRef.getDocument { docSnapshot, error in
+                    print("checkpoint 4")
+                    guard let doc = docSnapshot else { return }
                     do {
-                        let existingChat = try existingDoc.data(as: Chat.self)
-                        print("Reusing existing chat:", existingChat.chatId ?? "nil")
-                        self.chat = existingChat
+                        let chat = try doc.data(as: Chat.self)
+                        self.chat = chat
                         self.listenForMessages()
-                        self.sendMsgToExistingChat(chatId: existingChat.chatId, text: text)
+                        self.sendMsgToExistingChat(chatId: chat.chatId, text: text)
                     } catch {
-                        print("Failed to decode existing chat:", error)
-                    }
-                    return
-                }
-
-                
-                print("No existing chat, creating new one")
-
-                self.db.collection("users").document(self.currentUID).getDocument { snapshot, error in
-                    print("checkpoint 2")
-                    guard let data = snapshot?.data(),
-                          let currentUserName = data["name"] as? String else { return }
-
-                    var withNames = self.participants.map { $0.name }
-                    withNames.append(currentUserName)
-
-                    let chatRef = self.db.collection("chats").document()
-                    let chatData: [String: Any] = [
-                        "with": withIds,
-                        "withNames": withNames,
-                        "lastMessage": text,
-                        "lastSender": self.currentUID,
-                        "lastUpdated": Timestamp(),
-                        "participantsKey": participantsKey
-                    ]
-
-                    chatRef.setData(chatData) { error in
-                        print("checkpoint 3")
-                        guard error == nil else { return }
-                        chatRef.getDocument { docSnapshot, error in
-                            print("checkpoint 4")
-                            guard let doc = docSnapshot else { return }
-                            do {
-                                let chat = try doc.data(as: Chat.self)
-                                self.chat = chat
-                                self.listenForMessages()
-                                self.sendMsgToExistingChat(chatId: chat.chatId, text: text)
-                            } catch {
-                                print("Failed to decode new chat:", error)
-                            }
-                        }
+                        print("Failed to decode new chat:", error)
                     }
                 }
             }
+        }
     }
 
-    
     func sendMsgToExistingChat(chatId: String?, text: String) {
         guard let chatId = chatId else {
             print("sendMsgToExistingChat: chatId is nil")
@@ -156,7 +126,7 @@ class ChatViewController: UIViewController {
         let msgData: [String: Any] = [
             "text": text,
             "senderId": currentUID,
-            "timestamp": Timestamp() 
+            "timestamp": Timestamp()
         ]
 
         print("Writing message to chatId=\(chatId)")
@@ -239,6 +209,4 @@ extension ChatViewController: UITableViewDataSource, UITableViewDelegate {
             return cell
         }
     }
-    
-    
 }
