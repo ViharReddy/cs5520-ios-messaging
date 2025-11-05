@@ -13,14 +13,26 @@ struct Message: Codable, Hashable {
     var senderId: String
     var senderName: String?
     var text: String
-    var timestamp: Int64
+    var timestamp: Timestamp
 }
 
-extension Int64 {
+//extension Int64 {
+//    func formattedTime() -> String {
+//        let date = Date(timeIntervalSince1970: TimeInterval(self) / 1000)
+//        let formatter = DateFormatter()
+//        formatter.dateFormat = "hh:mm a"
+//        return formatter.string(from: date)
+//    }
+//}
+
+
+extension Timestamp {
     func formattedTime() -> String {
-        let date = Date(timeIntervalSince1970: TimeInterval(self) / 1000)
+        let date = self.dateValue()
         let formatter = DateFormatter()
-        formatter.dateFormat = "hh:mm a"
+        formatter.locale = .current
+        formatter.timeZone = .current
+        formatter.dateFormat = "h:mm a"
         return formatter.string(from: date)
     }
 }
