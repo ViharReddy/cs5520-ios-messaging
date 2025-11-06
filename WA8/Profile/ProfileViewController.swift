@@ -22,7 +22,6 @@ class ProfileViewController: UIViewController {
         title = "Profile"
         profileView.signoutButton.addTarget(self, action: #selector(signout), for: .touchUpInside)
         
-        profileView.startLoading()
         setValues()
     }
     
@@ -40,19 +39,8 @@ class ProfileViewController: UIViewController {
     }
     
     func setValues() {
-        let db = Firestore.firestore()
-        let uid = Auth.auth().currentUser!.uid
-        
-        db.collection("users").document(uid).getDocument { document, error in
-            self.profileView.stopLoading()
-            if let document = document, document.exists {
-                let data = document.data()!
-                self.profileView.nameValueLabel.text = data["name"] as? String
-                self.profileView.emailValueLabel.text = data["email"] as? String
-            } else {
-                print("Document does not exist")
-            }
-        }
+        profileView.nameValueLabel.text = UserSession.shared.currentUser?.name
+        profileView.emailValueLabel.text = UserSession.shared.currentUser?.email
     }
 
 }

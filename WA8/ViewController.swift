@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import FirebaseAuth
+import FirebaseFirestore
 
 class ViewController: UITabBarController, UITabBarControllerDelegate {
 
@@ -33,6 +35,21 @@ class ViewController: UITabBarController, UITabBarControllerDelegate {
         self.viewControllers = [chatsTab, profileTab]
         
         self.delegate = self
+        
+        fetchUserDetails()
+    }
+    
+    func fetchUserDetails() {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        Firestore.firestore().collection("users").document(uid).getDocument { snapshot, error in
+            if let error = error {
+                print("Error fetching user: \(error)")
+                return
+            }
+            
+            guard let user = try? snapshot?.data(as: User.self) else { return }
+            UserSession.shared.currentUser = user
+        }
     }
 
 }

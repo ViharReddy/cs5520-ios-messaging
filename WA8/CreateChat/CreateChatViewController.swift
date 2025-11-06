@@ -83,54 +83,6 @@ class CreateChatViewController: UIViewController {
             }
         })
     }
-    
-//    func createChat(with user: User) {
-//        guard let currentUser = Auth.auth().currentUser else { return }
-//        
-//        db.collection("users").document(currentUser.uid).getDocument { [weak self] snapshot, error in
-//            guard let self = self else { return }
-//            guard let data = snapshot?.data(), let currentUsername = data["name"] as? String else {
-//                return
-//            }
-//            db.collection("chats").whereField("with", arrayContains: currentUser.uid).getDocuments { [weak self] snapshot, error in
-//                guard let self = self else { return }
-//                guard let docs = snapshot?.documents else { return }
-//                
-//                if let existingDoc = docs.first(where: { doc in
-//                    let chatWith = doc.data()["with"] as? [String] ?? []
-//                    return chatWith.contains(currentUser.uid) && chatWith.contains(user.uid!)
-//                }) {
-//                    if let chat = try? existingDoc.data(as: Chat.self) {
-//                        self.openChat(chat)
-//                    }
-//                    return
-//                }
-//                let newChat = Chat(
-//                    with: [currentUser.uid, user.uid!],
-//                    withNames: [currentUsername, user.name],
-//                    lastUpdated: Int64(Date().timeIntervalSince1970 * 1000)
-//                )
-//                _ = try? db.collection("chats").addDocument(from: newChat) { error in
-//                    if let error = error {
-//                        print("Failed to create chat: \(error.localizedDescription)")
-//                    } else {
-//                        self.openChat(newChat)
-//                    }
-//                }
-//            }
-//        }
-//    }
-    
-//    func openChat(_ chat: Chat) {
-//        DispatchQueue.main.async {
-//            let chatViewController = ChatViewController()
-//            chatViewController.chat = chat
-//            self.dismissSelf()
-//            if let nav = self.presentingViewController as? UINavigationController {
-//                nav.pushViewController(chatViewController, animated: true)
-//            }
-//        }
-//    }
 }
 
 extension CreateChatViewController: UITableViewDelegate, UITableViewDataSource {
@@ -147,9 +99,6 @@ extension CreateChatViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let selectedUser = users[indexPath.row]
-//        tableView.deselectRow(at: indexPath, animated: true)
-//        createChat(with: selectedUser)
         tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
     }
     

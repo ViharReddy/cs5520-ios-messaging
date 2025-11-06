@@ -62,19 +62,12 @@ class SignupViewController: UIViewController {
             }
             
             Auth.auth().createUser(withEmail: emailText, password: passwordText) { authResult, error in
-//                if let error = error {
-//                    self.signupView.errorLabel.text = error.localizedDescription
-//                    self.signupView.errorLabel.isHidden = false
-//                    return
-//                }
-                if let error = error as NSError? {
-                    print("Firebase sign-up error:")
-                    print("code: \(error.code)")
-                    print("domain: \(error.domain)")
-                    print("userInfo: \(error.userInfo)")
-                    print("localizedDescription: \(error.localizedDescription)")
+                if let error = error {
+                    self.signupView.errorLabel.text = error.localizedDescription
+                    self.signupView.errorLabel.isHidden = false
                     return
                 }
+                
                 guard let user = authResult?.user else { return }
                 
                 let db = Firestore.firestore()

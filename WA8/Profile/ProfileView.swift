@@ -14,7 +14,6 @@ class ProfileView: UIView {
     var emailLabel: UILabel!
     var emailValueLabel: UILabel!
     var signoutButton: UIButton!
-    var loadingSpinner: UIActivityIndicatorView!
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -31,7 +30,6 @@ class ProfileView: UIView {
         setupEmailLabel()
         setupEmailValueLabel()
         setupSignoutButton()
-        setupLoadingSpinner()
         
         initConstraints()
     }
@@ -78,12 +76,6 @@ class ProfileView: UIView {
         contentWrapper.addSubview(signoutButton)
     }
     
-    func setupLoadingSpinner() {
-        loadingSpinner = UIActivityIndicatorView(style: .large)
-        loadingSpinner.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(loadingSpinner)
-    }
-    
     func initConstraints() {
         NSLayoutConstraint.activate([
             contentWrapper.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
@@ -108,21 +100,8 @@ class ProfileView: UIView {
             
             signoutButton.topAnchor.constraint(equalTo: emailValueLabel.bottomAnchor, constant: 32),
             signoutButton.centerXAnchor.constraint(equalTo: contentWrapper.frameLayoutGuide.centerXAnchor),
-            signoutButton.bottomAnchor.constraint(equalTo: contentWrapper.contentLayoutGuide.bottomAnchor, constant: -32),
-            
-            loadingSpinner.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
-            loadingSpinner.centerYAnchor.constraint(equalTo: safeAreaLayoutGuide.centerYAnchor)
+            signoutButton.bottomAnchor.constraint(equalTo: contentWrapper.contentLayoutGuide.bottomAnchor, constant: -32)
         ])
-    }
-    
-    func startLoading() {
-        loadingSpinner.startAnimating()
-        contentWrapper.isHidden = true
-    }
-    
-    func stopLoading() {
-        loadingSpinner.stopAnimating()
-        contentWrapper.isHidden = false
     }
 
 }

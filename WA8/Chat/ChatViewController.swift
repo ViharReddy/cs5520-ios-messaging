@@ -31,7 +31,7 @@ class ChatViewController: UIViewController {
         chatView.messagesTableView.delegate = self
         chatView.messagesTableView.dataSource = self
         chatView.messagesTableView.rowHeight = UITableView.automaticDimension
-        chatView.messagesTableView.estimatedRowHeight = 44
+        chatView.messagesTableView.estimatedRowHeight = 60
         chatView.sendMsgButton.addTarget(self, action: #selector(sendTapped), for: .touchUpInside)
         
         if let chat = chat {
@@ -69,139 +69,69 @@ class ChatViewController: UIViewController {
     }
     
     func createChatAndSendFirstMessage(text: String) {
-        print("checkpoint 1")
-
-        // get the uid of participants
         var withIds = participants.compactMap { $0.uid }
         withIds.append(currentUID)
+        
+        var withNames = self.participants.map { $0.name }
+        withNames.append(UserSession.shared.currentUser!.name)
 
-        // sort and generate key
-        let sortedIds = withIds.sorted()
-        let participantsKey = sortedIds.joined(separator: "_")
+        let chatRef = self.db.collection("chats").document()
+        let chatData: [String: Any] = [
+            "with": withIds,
+            "withNames": withNames,
+            "lastMessage": text,
+            "lastSender": self.currentUID,
+            "lastUpdated": Timestamp()
+        ]
 
-        // check existing chat
-        db.collection("chats")
-            .whereField("participantsKey", isEqualTo: participantsKey)
-            .limit(to: 1)
-            .getDocuments { snapshot, error in
-                if let error = error {
-                    print("Error querying chats:", error)
-                    return
-                }
-
-                if let existingDoc = snapshot?.documents.first {
-                    do {
-                        let existingChat = try existingDoc.data(as: Chat.self)
-                        print("Reusing existing chat:", existingChat.chatId ?? "nil")
-                        self.chat = existingChat
-                        self.listenForMessages()
-                        self.sendMsgToExistingChat(chatId: existingChat.chatId, text: text)
-                    } catch {
-                        print("Failed to decode existing chat:", error)
-                    }
-                    return
-                }
-
-                
-                print("No existing chat, creating new one")
-
-                self.db.collection("users").document(self.currentUID).getDocument { snapshot, error in
-                    print("checkpoint 2")
-                    guard let data = snapshot?.data(),
-                          let currentUserName = data["name"] as? String else { return }
-
-                    var withNames = self.participants.map { $0.name }
-                    withNames.append(currentUserName)
-
-                    let chatRef = self.db.collection("chats").document()
-                    let chatData: [String: Any] = [
-                        "with": withIds,
-                        "withNames": withNames,
-                        "lastMessage": text,
-                        "lastSender": self.currentUID,
-                        "lastUpdated": Timestamp(),
-                        "participantsKey": participantsKey
-                    ]
-
-                    chatRef.setData(chatData) { error in
-                        print("checkpoint 3")
-                        guard error == nil else { return }
-                        chatRef.getDocument { docSnapshot, error in
-                            print("checkpoint 4")
-                            guard let doc = docSnapshot else { return }
-                            do {
-                                let chat = try doc.data(as: Chat.self)
-                                self.chat = chat
-                                self.listenForMessages()
-                                self.sendMsgToExistingChat(chatId: chat.chatId, text: text)
-                            } catch {
-                                print("Failed to decode new chat:", error)
-                            }
-                        }
-                    }
-                }
+        chatRef.setData(chatData) { error in
+            guard error == nil else { return }
+            chatRef.getDocument { docSnapshot, error in
+                guard let doc = docSnapshot,
+                      let chat = try? doc.data(as: Chat.self)
+                else { return }
+                self.chat = chat
+                self.listenForMessages()
+                self.sendMsgToExistingChat(chatId: chat.chatId!, text: text)
             }
+        }
     }
 
     
-    func sendMsgToExistingChat(chatId: String?, text: String) {
-        guard let chatId = chatId else {
-            print("sendMsgToExistingChat: chatId is nil")
-            return
-        }
-
+    func sendMsgToExistingChat(chatId: String, text: String) {
         let msgRef = db.collection("chats").document(chatId)
             .collection("messages").document()
+        let now = Timestamp()
 
         let msgData: [String: Any] = [
             "text": text,
             "senderId": currentUID,
-            "timestamp": Timestamp() 
+            "senderName": UserSession.shared.currentUser!.name,
+            "timestamp": now
         ]
 
-        print("Writing message to chatId=\(chatId)")
         msgRef.setData(msgData) { error in
             if let error = error {
                 print("Error writing message: \(error)")
             } else {
-                print("Message written")
                 self.db.collection("chats").document(chatId).updateData([
                     "lastMessage": text,
                     "lastSender": self.currentUID,
-                    "lastUpdated": Timestamp()
+                    "lastUpdated": now
                 ])
             }
         }
     }
     
     func listenForMessages() {
-        guard let chatId = chat?.chatId else {
-            print("listenForMessages: chatId is nil")
-            return
-        }
+        guard let chatId = chat?.chatId else { return }
 
         db.collection("chats").document(chatId)
             .collection("messages")
             .order(by: "timestamp")
             .addSnapshotListener { snapshot, error in
-                if let error = error {
-                    print("Listener error: \(error)")
-                    return
-                }
-                guard let docs = snapshot?.documents else {
-                    print("Listener: no documents")
-                    return
-                }
-                print("🔍 Listener received \(docs.count) message docs")
-
-                self.messages = docs.compactMap {
-                    do {
-                        return try $0.data(as: Message.self)
-                    } catch {
-                        print("Decode error for doc \($0.documentID): \(error)")
-                        return nil
-                    }
-                }
+                guard let docs = snapshot?.documents else { return }
+                self.messages = docs.compactMap { try? $0.data(as: Message.self) }
 
                 DispatchQueue.main.async {
                     self.chatView.messagesTableView.reloadData()
@@ -234,6 +164,7 @@ extension ChatViewController: UITableViewDataSource, UITableViewDelegate {
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "incomingMsgs", for: indexPath) as! IncomingMsgCell
+            cell.senderLabel.text = message.senderName
             cell.messageLabel.text = message.text
             cell.timeLabel.text = message.timestamp.formattedTime()
             return cell
