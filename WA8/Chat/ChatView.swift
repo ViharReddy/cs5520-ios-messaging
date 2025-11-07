@@ -13,6 +13,8 @@ class ChatView: UIView {
     var sendMsgTextField: UITextField!
     var sendMsgButton: UIButton!
     
+    var bottomConstraint: NSLayoutConstraint!
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -69,8 +71,10 @@ class ChatView: UIView {
     }
     
     func initConstraints() {
+        bottomConstraint = sendMsgView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
+        
         NSLayoutConstraint.activate([
-            sendMsgView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
+            bottomConstraint,
             sendMsgView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
             sendMsgView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
             sendMsgView.heightAnchor.constraint(equalToConstant: 50),

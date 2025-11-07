@@ -16,6 +16,7 @@ class ChatViewController: UIViewController {
     var messages = [Message]()
     
     let db = Firestore.firestore()
+    let notificationCentre = NotificationCenter.default
     
     var currentUID: String {
         return Auth.auth().currentUser!.uid
@@ -34,12 +35,34 @@ class ChatViewController: UIViewController {
         chatView.messagesTableView.estimatedRowHeight = 60
         chatView.sendMsgButton.addTarget(self, action: #selector(sendTapped), for: .touchUpInside)
         
+        chatView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard)))
+        setupKeyboardHiding()
+        
         if let chat = chat {
             title = chatTitle(chat: chat)
             listenForMessages()
         } else {
             title = chatTitleForNewChat()
         }
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+    
+    func setupKeyboardHiding() {
+        notificationCentre.addObserver(
+            self,
+            selector: #selector(keyboardWillShow),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil
+        )
+        notificationCentre.addObserver(
+            self,
+            selector: #selector(keyboardWillHide),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil
+        )
     }
     
     func chatTitle(chat: Chat) -> String {
@@ -170,6 +193,27 @@ extension ChatViewController: UITableViewDataSource, UITableViewDelegate {
             return cell
         }
     }
-    
-    
+}
+
+extension ChatViewController {
+    @objc func keyboardWillShow(sender: NSNotification) {
+        guard let userInfo = sender.userInfo,
+              let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
+
+        let keyboardHeight = keyboardFrame.cgRectValue.height
+
+        chatView.bottomConstraint.constant = -keyboardHeight + view.safeAreaInsets.bottom
+
+        UIView.animate(withDuration: 0.3) {
+            self.view.layoutIfNeeded()
+            self.scrollToBottom()
+        }
+    }
+
+    @objc func keyboardWillHide(sender: NSNotification) {
+        chatView.bottomConstraint.constant = 0
+        UIView.animate(withDuration: 0.3) {
+            self.view.layoutIfNeeded()
+        }
+    }
 }
